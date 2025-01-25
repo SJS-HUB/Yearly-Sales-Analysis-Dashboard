@@ -22,35 +22,51 @@ The **Yearly Sales Analysis Dashboard** is a Power BI project that provides a de
 ## New Measures Created
 - **Profit Central_tech_corQ1_Q2**: Profit calculation for Central Technology Corporate in Q1 and Q2.
 -  DAX used:
--    Profit Central_tech_corQ1_Q2 = CALCULATE(
-                              SUM(Orders[Profit]),
-                             Orders[Category] = "Technology",
-                             Orders[Segment] = "Corporate",
-                             Orders[Region] = "Central",
-                             OR(QUARTER(Orders[Order Date]) = 1, (QUARTER(Orders[Order Date]) = 2)
-))
+-      Profit Central_tech_corQ1_Q2 = CALCULATE(
+                                        SUM(Orders[Profit]),
+                                        AND(
+                                            Orders[Category] = "Technology",
+                                            Orders[Segment] = "Corporate",
+                                            Orders[Region] = "Central",
+                                            Orders[Quarter] IN { "Q1", "Q2" }
+                                        )
+                                    )
+
 - **Total Profit West_Q1**: Total profit for the West region in Q1.
+- ** DAX used-
+-         Total Profit West_Q1 = CALCULATE(
+                                SUM(Orders[Profit]),
+                                Orders[Region] = "West",
+                                Orders[Quarter] = "Q1"
+                            )
+
 - **FurnitureSalesCentral**: Central region sales for Furniture.
    DAX used:
--     FurnitureSalesCentral = CALCULATE(
+-        FurnitureSalesCentral = CALCULATE(
                                    SUM(Orders[Sales]),
                                    Orders[Category]= "Furniture",
                                    Orders[Region] = "Central"
                                    )
 - **TechSales_E/W**: Technology sales for East and West regions.
 - ** DAX used-
--   SALES OFFICE E/W =  CALCULATE(
-                          SUM(Orders[Sales]), 
-                          AND(Orders[Category] = "OFFICE SUPPLIES" , 
-                          OR(Orders[Region] = "EAST", Orders[Region] = "WEST")
-                         ))
+-     TechSales_E/W = CALCULATE(
+                        SUM(Orders[Sales]),
+                        AND(
+                            Orders[Category] = "Technology",
+                            OR(
+                                Orders[Region] = "East",
+                                Orders[Region] = "West"
+                            )
+                        )
+                    )
+
 - **TechSales E/W**: Sales for East and West office segments.
-   - TechSales_E/W = 
-       CALCULATE(
-       SUM(Orders[Sales]),
-       AND(Orders[Category] = "Technology",
-       OR(Orders[Region] = "East", Orders[Region]= "West")
-      ))
+   -      TechSales_E/W = 
+          CALCULATE(
+          SUM(Orders[Sales]),
+          AND(Orders[Category] = "Technology",
+          OR(Orders[Region] = "East", Orders[Region]= "West")
+          ))
 
      
 ## How to Use
