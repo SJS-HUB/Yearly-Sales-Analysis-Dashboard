@@ -61,7 +61,7 @@ The **Yearly Sales Analysis Dashboard** is a Power BI project that provides a de
                     )
 
 - **TechSales E/W**: Sales for East and West office segments.
-   -      TechSales_E/W = 
+-         TechSales_E/W = 
           CALCULATE(
           SUM(Orders[Sales]),
           AND(Orders[Category] = "Technology",
